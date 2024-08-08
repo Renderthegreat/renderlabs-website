@@ -1,0 +1,117 @@
+{
+  "en_US": {
+    "header": {
+      "title": "Renderlabs",
+      "menu": {
+        "button": "Menu",
+        "signup": "Sign up",
+        "settings": "Settings"
+      }
+    },
+    "content": {
+      "index": {
+        "welcome": "Welcome to Renderlabs"
+      },
+      "settings": {
+        "appearance": {
+          "title": "Appearance",
+          "theme": "Theme",
+          "option": {
+            "theme": "Theme"
+          }
+        },
+        "account": {
+          "title": "Account",
+          "username": "Username",
+          "email": "Email",
+          "password": "Password",
+          "reset_password": "Reset password",
+          "confirm": "Confirm password",
+          "delete": "Delete account"
+        },
+        "help": {
+          "title": "Get Help",
+          "faq": "FAQ",
+          "contact": "Contact",
+          "terms_and_privacy": "Terms and Privacy Policy"
+        }
+      },
+      "auth": {
+        "signup": {
+          "title": "Sign up",
+          "username": "Username",
+          "email": "Email",
+          "password": "Password",
+          "confirm": "Confirm password",
+          "submit": "Sign up",
+          "terms": "I agree to the (::) terms and conditions"
+        },
+        "login": {
+          "title": "Login",
+          "email": "Email",
+          "password": "Password",
+          "submit": "Login",
+          "forgot_password": "Forgot password?"
+        },
+        "errors": {
+          "signup": {
+            "password": {
+              "not_match": "Passwords do not match",
+              "too_short": "Password is too short"
+            },
+            "email": {
+              "too_short": "Email is too short"
+            }
+          },
+          "invalid_credentials": {
+            
+          }
+        }
+      },
+      "captcha": {
+        "button": {
+          "start": "Start",
+          "check": "Check"
+        },
+        "status": {
+          "not-complete": "We don't think that you are a robot but just in case,\n please solve the puzzle.",
+          "complete": "You are a human!"
+        },
+        "placeholder": "Enter the text in the image"
+      }
+    },
+    "things": {
+      "theme": {
+        "light": "light",
+        "dark": "dark"
+      },
+      "death": "A critical error has occurred, could not recover. Would you like to send your logs to renderlabs? You can view them by checking the console.",
+      "alertBox": {
+        "yes": "Yes",
+        "no": "No",
+        "error": "Error"
+      }
+    },
+    "error_codes": {
+      "-1": "Internal Error",
+      "1800": "There was an error please try again.",
+      "1801": "Please enter your email and password",
+      "3005": "Please reenter your account info",
+      "5001": "Email is invalid",
+      "5002": "Email is already taken",
+      "5003": "Email is too short",
+      "5004": "Email is too long",
+      "5005": "Email is not registered",
+      "6001": "Username is invalid",
+      "6002": "Username is already taken",
+      "6003": "Username is too short",
+      "6004": "Username is too long",
+      "7001": "Password is invalid",
+      "7002": "Password is too short",
+      "7003": "Password is too long",
+      "8001": "Captcha does not exist",
+      "8002": "Captcha has expired",
+      "8003": "Captcha text is not correct"
+    }
+  }
+}

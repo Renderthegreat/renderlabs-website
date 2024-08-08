@@ -1,0 +1,25 @@
+:root {
+  /* Colors */
+  --renderlabs-color: #6DE06D;
+  --renderlabs-color-dark: #2E5E2E;
+  --splitter-color: #E0E0E0;
+  --debug-color: #9B59B6;
+  --light-color-main: #F2F2F2;
+  --light-color-secondary: #E6E6E6;
+  --light-color-tertiary: #D9D9D9;
+  --light-color-splitter: #b4b4b4;
+  --dark-color-main: #1F1F1F;
+  --dark-color-secondary: #2C2C2C;
+  --dark-color-tertiary: #3b3b3b;
+  --dark-color-splitter: #242424;
+  --current-color-main: #000000;
+  --current-color-secondary: #000000;
+  --current-color-tertiary: #000000;
+  --opposite-color-main: #000000;
+  --opposite-color-secondary: #000000;
+  --opposite-color-tertiary: #000000;
+
+  /* Positions */
+  --top-z: 1000;
+  --content-z: 0;
+}
