@@ -2,8 +2,8 @@
   <div id="auth" class="pixelify">
     <div id="auth-container" class="pixelify">
       <div id="auth-container-signup" v-if="selection == 1">
-        <h1>{{ lang?.content?.auth?.signup?.title }}</h1>
         <form id="auth-container-signup-form" @submit.prevent="signup">
+          <h1>{{ lang?.content?.auth?.signup?.title }}</h1>
           <input id="auth-container-signup-form-email" type="text" :placeholder="lang?.content?.auth?.signup?.email"><br/>
           <input id="auth-container-signup-form-username" type="text" :placeholder="lang?.content?.auth?.signup?.username"><br/>
           <input id="auth-container-signup-form-password" type="password" :placeholder="lang?.content?.auth?.signup?.password"><br/>
@@ -15,16 +15,16 @@
             <toggle id="auth-container-signup-form-terms" @update:data="termsToggle"/><br/>
           </span>
           <button id="auth-container-signup-form-submit" type="submit">{{ lang?.content?.auth?.signup?.submit }}</button><br/>
-          <a href="javascript:window.shared.switchToOther();">I already have an account</a>
+          <a href="javascript:window.shared.switchToOther();">{{ lang?.content?.auth?.signup?.switch }}</a>
         </form>
       </div>
       <div id="auth-container-login" v-if="selection == 2">
-        <h1>{{ lang?.content?.auth?.login?.title }}</h1>
         <form id="auth-container-login-form" @submit.prevent="login">
+          <h1>{{ lang?.content?.auth?.login?.title }}</h1>
           <input id="auth-container-login-form-email" type="text" :placeholder="lang?.content?.auth?.login?.email"><br/>
           <input id="auth-container-login-form-password" type="password" :placeholder="lang?.content?.auth?.login?.password"><br/>
           <button id="auth-container-login-form-submit" type="submit">{{ lang?.content?.auth?.login?.submit }}</button><br/>
-          <a href="javascript:window.shared.switchToOther();">I don't have an account</a>
+          <a href="javascript:window.shared.switchToOther();">{{ lang?.content?.auth?.login?.switch }}</a>
         </form>
       </div>
       <pre><code id="auth-container-helper">{{ error }}</code></pre>
@@ -190,7 +190,7 @@
     padding-left: 60px;
     padding-right: 60px;
   }
-
+  
   span {
     display: flex;
     white-space: nowrap;

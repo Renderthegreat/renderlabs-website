@@ -142,4 +142,14 @@
     align-items: center;
     border-radius: 10px;
   }
+
+  #check-button {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  #start-button {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
 </style>

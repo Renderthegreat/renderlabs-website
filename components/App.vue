@@ -439,10 +439,11 @@
   #header-left-title-renderlabs-link {
     height: 60%;
     width: auto;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: normal;
     text-decoration: none;
     color: var(--light-color-main);
+    align-self: center;
   }
 
 

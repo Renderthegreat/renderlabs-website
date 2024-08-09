@@ -56,30 +56,37 @@
   button {
     border: none;
     outline: none;
-    background-color: #6c5ce7;
+    background-color: #78C57F;
     padding: 10px 20px;
     font-size: 12px;
     font-weight: 700;
     color: var(--current-color-main);
     border-radius: 5px;
     transition: all ease 0.1s;
-    box-shadow: 0px 5px 0px 0px #a29bfe;
+    box-shadow: 0px 5px 0px 0px #609E66;
     align-self: center;
     font-family: "Pixelify Sans", sans-serif;
   }
 
   button:active {
     transform: translateY(5px);
-    box-shadow: 0px 0px 0px 0px #a29bfe;
+    background-color: #609E66;
+    box-shadow: 0px 0px 0px 0px #609E66;
   }
 
   button:hover {
-    background-color: #9b87e6;
+    background-color: #93D099;
   }
 
   button:disabled {
-    background-color: #b0b0b0;
+    background-color: #B0B0B0;
+    box-shadow: 0px 5px 0px 0px #A1A1A1;
     cursor: not-allowed;
+  }
+
+  button:disabled:active {
+    transfrom: translateY(5px);
+    box-shadow: 0px 0px 0px 0px #A1A1A1;
   }
 
   input[type="text"], input[type="password"] {

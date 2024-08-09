@@ -27,7 +27,8 @@
           "password": "Password",
           "reset_password": "Reset password",
           "confirm": "Confirm password",
-          "delete": "Delete account"
+          "delete": "Delete account",
+          "logout": "Logout"
         },
         "help": {
           "title": "Get Help",
@@ -44,14 +45,16 @@
           "password": "Password",
           "confirm": "Confirm password",
           "submit": "Sign up",
-          "terms": "I agree to the (::) terms and conditions"
+          "terms": "I agree to the (::) terms and conditions",
+          "switch": "Already have an account?"
         },
         "login": {
           "title": "Login",
           "email": "Email",
           "password": "Password",
           "submit": "Login",
-          "forgot_password": "Forgot password?"
+          "forgot_password": "Forgot password?",
+          "switch": "Don't have an account?"
         },
         "errors": {
           "signup": {
