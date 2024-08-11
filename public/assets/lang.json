@@ -9,6 +9,17 @@
       }
     },
     "content": {
+      "long_content": {
+        "how_does_captcha_work": [
+          "How does captcha work?",
+          "Captcha is a simple way to verify that you are not a robot. It generates a random string and displays it on the screen. You have to type the string into the input field.",
+          "But how do we prevent a user from bypassing it?",
+          "To prevent a user (or bot) we first encrypt the string with SHA-256 (An algorithm that is very secure and cannot be reversed easily). Then we store the encrypted string in the postgreSQL database. When the user submits the form, we encrypt their string with SHA-256 and compare it to the encrypted string in the database. If they match, the user is allowed to submit.",
+          "What happens if the user submits the form without typing the string?",
+          "To prevent a user from bypassing the captcha, we instead can create an api (https://progapi.renderlabs.cloud/api/generate-keypair) that generates an ID and a key. The form must include the form data, the string, and the ID. Basically the string is a key to use a captcha protected api. Then, we can delete the string from the database after the user submits the form. This way, the user cannot bypass the captcha.",
+          "Try it out!"
+        ]
+      },
       "index": {
         "welcome": "Welcome to Renderlabs"
       },
@@ -28,7 +39,8 @@
           "reset_password": "Reset password",
           "confirm": "Confirm password",
           "delete": "Delete account",
-          "logout": "Logout"
+          "logout": "Logout",
+          "info": "Account information"
         },
         "help": {
           "title": "Get Help",
@@ -76,6 +88,7 @@
           "start": "Start",
           "check": "Check"
         },
+        "learn": "See how it works",
         "status": {
           "not-complete": "We don't think that you are a robot but just in case,\n please solve the puzzle.",
           "complete": "You are a human!"

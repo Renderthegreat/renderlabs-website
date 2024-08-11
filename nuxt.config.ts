@@ -9,6 +9,7 @@ export default defineNuxtConfig({
 
   css: [
     "~/public/assets/css/global.css",
+    "~/public/assets/css/magic-stone.css"
   ],
 
   compatibilityDate: "2024-08-02"

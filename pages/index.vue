@@ -34,13 +34,12 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-left: 10px;
     padding-top: 10px;
     justify-content: center;
     align-items: center;
     align-content: center;
     gap: 2rem;
-    height: 100%;
+    height: 100vh;
     width: 100%;
   }
 </style>

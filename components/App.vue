@@ -108,7 +108,7 @@
             function (event, dataf) {
               this.info.push(event);
               if (dataf) {
-                this.info.push(this.data.length);
+                this.info.push("At-" + this.data.length);
                 this.data.push(JSON.stringify(dataf));
               }
               console.clear();
@@ -120,7 +120,7 @@
             function (warning, dataf) {
               this.warning.push(warning);
               if (dataf)
-              this.warning.push(this.data.length);
+              this.warning.push("At-" + this.data.length);
               this.data.push(JSON.stringify(dataf));
               console.clear();
               if (window.getMyDataPlease)
@@ -131,7 +131,7 @@
             function (error, dataf) {
               this.error.push(error);
               if (dataf)
-              this.error.push(this.data.length);
+              this.error.push("At-" + this.data.length);
               this.data.push(JSON.stringify(dataf));
               console.clear();
               if (window.getMyDataPlease)
@@ -142,7 +142,7 @@
             function (event, dataf) {
               this.death.push(event);
               if (dataf)
-              this.info.push(this.data.length);
+              this.info.push("At-" + this.data.length);
               this.data.push(JSON.stringify(dataf));
               console.clear();
               if (window.getMyDataPlease)
@@ -257,7 +257,7 @@
           console.log("%cInfo:      %s", "background: #64D98A; color: white; padding: 2px 4px; border-radius: 5px;", this.Analyst.info.join('\n'));
           console.log("%cWarning:   %s", "background: #DEA739; color: white; padding: 2px 4px; border-radius: 5px;", this.Analyst.warning.join('\n'));
           console.log("%cError:     %s", "background: #DC4949; color: white; padding: 2px 4px; border-radius: 5px;", this.Analyst.error.join('\n'));
-          console.log("%cDeath:     %s", "background:  orange; color: white; padding: 2px 4px; border-radius: 5px;", this.Analyst.death.join('\n'));
+          console.log("%cDeath:     %s", "background: #DF10DE; color: white; padding: 2px 4px; border-radius: 5px;", this.Analyst.death.join('\n'));
           console.log("%cLingering: %s", "background: #64D98A; color: white; padding: 2px 4px; border-radius: 5px;", this.Analyst.data.join('\n'));
         },
       alertBox:
@@ -294,7 +294,10 @@
 
       document.addEventListener('click', (event) => {
         if (event.target.tagName === 'BUTTON') {
-          this.Analyst.Event(`Click`, event.target.id);
+          this.Analyst.Event(`Click-Button-${event.target.id}`);
+        }
+        if (event.target.id != "header-right-menu-button" && this.menuDropdown) {
+         this.toggleMenuDropdown();
         }
       });
 

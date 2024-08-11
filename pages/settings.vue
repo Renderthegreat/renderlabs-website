@@ -15,7 +15,8 @@
       </div>
       <div id="settings-content-account" v-if="selection==2">
         <h1>{{ lang?.content?.settings?.account?.title }}</h1>
-        <h2>...</h2>
+        <h2>{{ lang?.content?.settings?.account?.info }}</h2>
+        
       </div>
       <div id="settings-content-help" v-if="selection==3">
         <h1>{{ lang?.content?.settings?.help?.title }}</h1>

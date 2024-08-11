@@ -15,7 +15,11 @@
       </div>
       <button id="start-button" @click="makeCaptcha();" type="button">{{ lang?.content?.captcha?.button?.start }}</button>
       <button id="check-button" disabled @click="checkCaptcha();" type="button">{{ lang?.content?.captcha?.button?.check }}</button>
+      <NuxtLink id="learn-link" to="/info/how-does-captcha-work" class="learn-link">{{ lang?.content?.captcha?.learn }}</NuxtLink>
       <pre><code>{{ error }}</code></pre>
+      <div id="debug" v-if="debug">
+        <pre><code>ID: {{ id }}</code></pre>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +33,12 @@
         id: "",
         captchaInput: "",
         status: "not-complete"
+      }
+    },
+    props: {
+      debug: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
