@@ -1,12 +1,16 @@
 const systemToken = String.fromCodePoint(0xE001);
 const userToken = String.fromCodePoint(0xE002);
-const aiToken = String.fromCodePoint(0xE003);
+const aiToken = String.fromCodePoint(0xE003)
 
 function streamAIResponse(ai, prompt, handle) {
   const jsonPattern = /data: ({.*?})/g;
-  const encodedPrompt = encodeURIComponent(prompt); // Encode prompt to handle special characters
+  let encodedPrompt = prompt; // Encode prompt to handle special characters
+  encodedPrompt = JSON.stringify(encodedPrompt);
+  encodedPrompt = encodedPrompt.replace(/(?<!\\)"/g, '');
+  encodedPrompt = encodeURIComponent(encodedPrompt);
+  let url = `https://progapi.renderlabs.cloud/api/ai?body={"stream":true,"prompt":"${encodedPrompt}","AI":"${ai}"}`
 
-  fetch(`https://progapi.renderlabs.cloud/api/ai?body={"stream":true,"prompt":"${encodedPrompt}","AI":"${ai}"}`, {
+  fetch(url, {
     method: 'GET',
   })
     .then(response => {
@@ -14,17 +18,31 @@ function streamAIResponse(ai, prompt, handle) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let accumulatedData = '';
+        let xt = '';
 
         const processStream = async () => {
           while (true) {
             const { done, value } = await reader.read();
+            let match;
             if (done) {
-              handle(2);
+              let jf = [];
+              let i = 0;
+              //console.log(xt)
+              while (xt.split('data:')[i]) {
+                try {
+                  //const jsonString = xt.split('\n')[i];
+                  //const jsonData = JSON.parse(jsonString);
+                  jf.push(JSON.parse(xt.split('data:')[i]));
+                } catch (error) {
+                  
+                }
+                i++;
+              }
+              handle(2, jf);
               break;
             }
             accumulatedData += decoder.decode(value, { stream: true });
-
-            let match;
+            
             while ((match = jsonPattern.exec(accumulatedData)) !== null) {
               try {
                 const jsonString = match[1];
@@ -32,6 +50,7 @@ function streamAIResponse(ai, prompt, handle) {
                 handle(1, jsonData);
 
                 accumulatedData = accumulatedData.slice(match.index + match[0].length);
+                xt += accumulatedData;
               } catch (error) {
                 handle(3); // Handle JSON parsing error
               }
@@ -49,16 +68,19 @@ function streamAIResponse(ai, prompt, handle) {
     });
 }
 
-function textBuffer(message, ai, user) {
+function textBuffer(message, ai, user, extra) {
   let token = user === "system" ? systemToken : user === "user" ? userToken : aiToken;
-  message = token + message;
+  if (!extra)
+    message = token + message;
+  else 
+    message = message
 
   return {
     stream: function(handle) {
       streamAIResponse(ai, message, handle);
     },
     combine: function(message2, user2) {
-      return textBuffer(message + message2, ai, user2);
+      return textBuffer(message + message2, ai, user2, true);
     },
     message: message,
     user: user
@@ -66,6 +88,7 @@ function textBuffer(message, ai, user) {
 }
 
 export function textAI(ai) {
+  let fixed = null;
   return {
     send: function(messages) {
       const slinky = [];
@@ -87,37 +110,40 @@ export function textAI(ai) {
         newestSlink.message = newestSlink.message.replace(newestSlink.message[0], "")
       }
       let response = [];
+      let responseStatus = 0;
+      let end = false;
       function handle (type, data) {
         if (type === 1) {
           response.push(data);
         }
         if (type === 2) {
-          response = 0
+          responseStatus = 1;
+          fixed = data;
         }
         if (type === 3) {
+          responseStatus = 2;
           response.push('[! Token Error]')
         }
         if (type === 4) {
-          response = 2
+          responseStatus = 3;
+          response.push('[! HTTP Error]')
         }
         if (type === 5) {
-          response = 3
+          responseStatus = 4;
         }
       }
       newestSlink.stream(handle);
       return function *() {
         while (true) {
-          if (response === 0) {
-            return 88;
+          if (responseStatus === 1 && !end) {
+            end = true;
+            yield [response, 88];
           }
-          if (response === 1) {
-            return 90;
+          if (end) {
+            yield fixed;
           }
-          if (response === 2) {
-            return 91;
-          }
-          if (response === 3) {
-            return 92;
+          if (responseStatus === 3) {
+            return [response, 92];
           }
           yield response;
         }

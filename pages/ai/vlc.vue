@@ -1,13 +1,11 @@
 <template>
-  <div class="pixelify">
-    <div class="chat-container">
-      <div class="messages" ref="messages">
-        <div v-for="(message, index) in messages" :key="index" class="message">
-          {{ message }}
-        </div>
+  <div class="chat-container pixelify">
+    <div class="messages" ref="messages">
+      <div v-for="(message, index) in messages" :key="index" class="message">
+        <md :markdown="message"></md>
       </div>
-      <input id="input" v-model="input" @keyup.enter="sendMessage" placeholder="Type your message..."/>
     </div>
+    <input id="input" v-model="input" @keyup.enter="sendMessage" placeholder="Type your message..."/>
   </div>
 </template>
 
@@ -21,7 +19,7 @@
         chat: [
           {
             user: "system",
-            content: "You are an VLC AI used for most renderlabs applications",
+            content: "You are an VLC AI used for most renderlabs applications. Messages are in order so do not repeat yourself.",
           },
         ],
         ai: textAI("vlc")
@@ -33,59 +31,61 @@
     methods: {
       sendMessage() {
         if (this.input.trim() === '') return;
-        toggleInputBox()
         this.chat.push({
           user: "user",
           content: this.input,
         })
         this.messages.push(this.input);
-        this.lockInput();
+        this.toggleInputBox();
         const response = this.ai.send(this.chat);
-        let end = ''
-        this.messages.push("")
+        const audiocontext = new AudioContext();
+        this.messages.push("");
+        
         const reader = setInterval(() => {
           const res = response().next().value
-          if (res === 88) {
+          if (res[1] === 88) {
             clearInterval(reader);
+            //window.Analyst.Event("vlc-ai-stream-ended");
+            const reread = response().next().value;
+            //console.warn(reread)
+            const content = reread.map(item => item.response).join("");
+            //console.log(content)
+            
+            //this.messages[this.messages.length - 1] = content;
             this.chat.push({
               user: "ai",
-              content: end,
-            })
-            // debug
-            //this.chat = []
-            //console.log(this.chat)
+              content: this.messages[this.messages.length - 1],
+            });
             return
           }
-          if (res === 90) {
-            this.messages[this.message.length - 1] = '[!]'
+          if (res[1] === 90) {
+            window.Analyst.Warn("vlc-ai-token-error");
             return
           }
-          if (res === 91) {
-            clearInterval(reader);
-            this.messages[this.message.length - 1] = '[?]'
+          if (res[1] === 91) {
+            window.Analyst.Error("vlc-ai-http-error");
             return
           }
-          if (res === 92) {
-            clearInterval(reader);
-            this.messages[this.message.length - 1] = '[.]'
+          if (res[1] === 92) {
+            window.Analyst.Error("vlc-ai-http-error");
             return
           }
           const content = res.map(item => item.response).join("");
-          end = content;
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-          const oscillator = audioContext.createOscillator();
-
-          oscillator.type = 'sawtooth';
-          oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-          oscillator.connect(audioContext.destination);
-          oscillator.start();
-
-          oscillator.stop(audioContext.currentTime + 0.1);
+          
+          if (content!==this.messages[this.messages.length - 1]) {
+            const oscillator = audiocontext.createOscillator();
+            oscillator.type = "sine";
+            oscillator.frequency.value = 880;
+            oscillator.connect(audiocontext.destination);
+            oscillator.start();
+            oscillator.stop(audiocontext.currentTime + 0.5);
+          }
+          
           this.messages[this.messages.length - 1] = content;
         }, 100)
-        this.input = '';
-        toggleInputBox();
+     
+      this.input = '';
+      this.toggleInputBox();
       },
       toggleInputBox() {
         const inputBox = document.getElementById("input");
@@ -100,6 +100,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100%;
 }
 
 .messages {
